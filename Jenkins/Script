@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hostanme') {
+            steps {
+                sh 'hostname'
+            }
+        }
+        stage('Present working directory') {
+            steps {
+                sh 'pwd'
+            }
+        }
+        stage('display the mounted path') {
+            steps {
+                sh 'df -h'
+            }
+        }
+    }
+}
