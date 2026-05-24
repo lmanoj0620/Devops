@@ -2,6 +2,13 @@ pipeline {
     agent {
         label 'slave'
     }
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['qa', 'dev', 'prod'],
+            description: 'Select the environment to deploy'
+        )
+    }
 
     stages {
         stage('Hostanme') {
