@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+   tools{
+       jdk "java-11"
+       maven "maven"
+   
+   }
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'dev' , url: 'https://github.com/lmanoj0620/Devops.git'
+            }
+        }
+        stage('Code Compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('Code Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Build and Tag') {
+            steps {
+                sh 'docker build -t manojbala/CICD .'
+            }
+        }
+        stage('Containrization') {
+            steps {
+                sh 'docker run -it -d --name c1 -p 8000:8080 manojbala/CICD'
+            }
+        }
+        stage('Login to docker hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    }
+            }
+        }
+        stage('Pushing image to repository'){
+            steps{
+                sh 'docker push manojbala/CICD'
+            }
+        }
+    }
+}
