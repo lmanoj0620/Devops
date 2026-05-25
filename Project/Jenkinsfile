@@ -1,4 +1,4 @@
-pipeline {
+pipeline{
     agent any
 
    tools{
@@ -6,29 +6,29 @@ pipeline {
        maven "maven"
    
    }
-    stages {
-        stage('Git Checkout') {
-            steps {
+    stages{
+        stage('Git Checkout'){
+            steps{
                 git branch: 'UAT' , url: 'https://github.com/lmanoj0620/Devops.git'
             }
         }
-        stage('Code Compile') {
-            steps {
+        stage('Code Compile'){
+            steps{
                 sh 'mvn compile'
             }
         }
-        stage('Code Package') {
-            steps {
+        stage('Code Package'){
+            steps{
                 sh 'mvn package'
             }
         }
-        stage('Build and Tag') {
-            steps {
+        stage('Build and Tag'){
+            steps{
                 sh 'docker build -t manojbala/CICD .'
             }
         }
-        stage('Containrization') {
-            steps {
+        stage('Containrization'){
+            steps{
                 sh 'docker run -it -d --name c1 -p 8000:8080 manojbala/CICD'
             }
         }
