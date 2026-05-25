@@ -32,8 +32,8 @@ pipeline{
                 sh 'docker run -it -d --name c1 -p 8000:8080 manojbala/CICD'
             }
         }
-        stage('Login to docker hub') {
-            steps {
+        stage('Login to docker hub'){
+            steps{
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
