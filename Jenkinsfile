@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'manjukolkar007/test-dev:latest'
+        DOCKER_IMAGE = 'manojbala/test-dev:latest'
         DEPLOY_FILE  = 'deploy.yaml'
-        DOMAIN       = 'micro123.duckdns.org'
+        DOMAIN       = 'sisya123.duckdns.org'
     }
 
     stages {
@@ -32,7 +32,7 @@ pipeline {
                     def branchInput = input(
                         id: 'branchSelect',
                         message: 'Select the branch to build:',
-                        parameters: [string(name: 'BRANCH', defaultValue: 'master', description: 'Enter the branch name to build')]
+                        parameters: [string(name: 'BRANCH', defaultValue: 'main', description: 'Enter the branch name to build')]
                     )
                     env.BRANCH_NAME = branchInput
                     echo "✅ Selected Branch: ${env.BRANCH_NAME}"
