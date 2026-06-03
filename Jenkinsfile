@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'lmanojbalaji/manojbala:latest'
+        DOCKER_IMAGE = 'lmanojbalaji/manojbala:v1'
         DEPLOY_FILE  = 'deploy.yaml'
         DOMAIN       = 'sisya123.duckdns.org'
     }
